@@ -1,0 +1,116 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Iniciar sesion RouteSchool</title>
+    <link rel="icon"
+          href="/favicon.ico">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+<div class="wrapper">
+    <div class="title">Route School</div>
+    <form id="lo" onsubmit="iniciar()">
+        <div class="field">
+            <input type="text">
+            <!--
+                        <input type="text" required>
+            -->
+            <label>Rut</label>
+        </div>
+        <div class="field">
+            <input type="password">
+            <!--
+                        <input type="password"required>
+            -->
+            <label>Contraseña</label>
+        </div>
+        <div class="content">
+            <!--
+                        <div class="pass-link">
+                            <a href="#">Recuperar contraseña</a></div>-->
+        </div>
+        <div class="field">
+            <input type="submit" value="Login">
+        </div>
+    </form>
+</div>
+
+<script>
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    var host = "http://approuteschool.ddns.net:8080"
+    if(!(getCookie("credentials") == "")){
+        fetch(host+'/apoderado/',{headers:{authorization:'Basic '+getCookie('credentials')}}).then(ok => ok.json().then(okJSON => {
+            if(okJSON.code==200){
+                window.location.replace(host+"/apoderado/home");
+            }
+        })).catch(e=>{
+
+        })
+
+    }
+
+
+    var form = document.getElementById("lo");
+
+    function handleForm(event) {
+        event.preventDefault();
+    }
+
+    form.addEventListener('submit', handleForm);
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function iniciar() {
+        let usuario = [...document.getElementsByTagName("input")].filter(i => i.type === "text").shift().value
+        let clave = [...document.getElementsByTagName("input")].filter(i => i.type === "password").shift().value
+        let credenciales = btoa(`${usuario}:${clave}`)
+        console.log()
+
+        fetch(host+"/apoderado/", {
+            headers: {
+                "authorization": "Basic " + credenciales
+            }
+        }).then(res => {
+            res.json().then(resJSON => {
+                if (resJSON.code == 200) {
+                    //sessionStorage.setItem("credentials",credenciales)
+                    window.location.replace(host+"/apoderado/home");
+
+                } else {
+                    alert("error con las credenciales rut o contraseña ingresadas")
+                }
+            })
+
+        }).catch(e=>{
+            alert("error al intentar conectarse al servidor")
+        })
+
+    }
+
+
+</script>
+
+</body>
+</html>
+</html>

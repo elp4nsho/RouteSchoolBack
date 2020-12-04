@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>Editar datos</title>
+    <link rel="icon"
+          href="/favicon.ico">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzF49PvbT3H0fUk3D8ljj1xR0RTdF9YQI&language=es">
+    </script>
+
+    <style>
+
+    </style>
+</head>
+
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #feca12;">
+    <a class="navbar-brand" href="/apoderado/home">
+        <img style="border: solid 1px" src="/routeschoolR.jpg" width="30" height="30" class="d-inline-block align-top"
+             alt="" loading="lazy">
+        RouteSchool
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/apoderado/editar">Editar datos <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/apoderado/monitoreo">Monitorear ruta</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/apoderado/inasistencia">Agendar inasistencia</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="salir()">Salir</a>
+            </li>
+            <!-- <li class="nav-item">
+                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+             </li>-->
+        </ul>
+    </div>
+</nav>
+<script>
+    var host = "http://approuteschool.ddns.net:8080"
+
+    function salir() {
+        fetch(host+'/apoderado/salir/', {headers: {authorization: 'Basic ' + getCookie('credentials')}}).then(ok => {
+            ok.json().then(okJS=>{
+                console.log(okJS)
+                location.reload()
+            })
+
+        })
+    }
+</script>
+<form id="lo" class="container mt-5 mb-3">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">RUT</label>
+            <input disabled type="text" class="form-control" id="inputApoderadoRut">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Nombre apoderado</label>
+            <input type="text" required class="form-control" id="inputApoderadoNombre">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4" required>Correo Electronico</label>
+            <input type="email" class="form-control" id="inputApoderadoCorreo">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Apellido paterno</label>
+            <input type="text" class="form-control" id="inputApoderadoPaterno">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Apellido Materno</label>
+            <input type="text" class="form-control" id="inputApoderadoMaterno">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Telefono</label>
+            <input type="text" class="form-control" id="inputApoderadoTelefono">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputAddress" required>Direccion apoderado</label>
+            <input type="text" class="form-control" id="inputApoderadoDireccion" placeholder="">
+            <i type="submit" class="fas fa-search fa-lg " style="background: #feca12;padding: 10px" id="buscarDireccionApoderado">Buscar</i>
+            <div id="map" style="height: 350px"></div>
+        </div>
+        <div class="form-group col-md-12    ">
+            <label for="ninosSelect">Niños</label>
+            <select  id="ninosSelectNinos" class="form-control">
+                <option value="default" selected>Seleccione un niño</option>
+            </select>
+        </div>
+    </div>
+    <div id="datosNino" class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputPassword4" >Nombre del niño</label>
+            <input required type="text" class="form-control" id="inputNinoNombre">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Apellido Paterno</label>
+            <input required type="text" class="form-control" id="inputNinoPaterno">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Apellido Materno</label>
+            <input required type="text" class="form-control" id="inputNinoMaterno">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Edad</label>
+            <input required type="text" class="form-control" id="inputNinoEdad">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="ninosSelectCursos">Curso</label>
+            <select id="ninosSelectCursos" class="form-control">
+                <option value="pre-kinder">pre-kinder</option>
+                <option value="kinder">kinder</option>
+                <option value="primero basico">primero basico</option>
+                <option value="segundo basico">segundo basico</option>
+                <option value="tercero basico">tercero basico</option>
+                <option value="cuarto basico">cuarto basico</option>
+                <option value="quinto basico">quinto basico</option>
+                <option value="sexto basico">sexto basico</option>
+                <option value="septimo basico">septimo basico</option>
+                <option value="octavo basico">octavo basico</option>
+                <option value="primero medio">primero medio</option>
+                <option value="segundo medio">segundo medio</option>
+                <option value="tercero medio">tercero medio</option>
+                <option value="cuarto medio">cuarto medio</option>
+                <option value="otros">otros</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="ninosSelectReglas">Modalidad</label>
+            <select id="ninosSelectReglas" class="form-control">
+                <option value="3">Mañana y tarde</option>
+                <option value="1">Solo mañana</option>
+                <option value="2">Solo tarde</option>
+            </select>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="inputPassword4">Colegio</label>
+            <input disabled type="text" class="form-control" id="inputNinoColegio">
+        </div>
+        <div class="form-group col-md-12">
+            <label for="inputPassword4">Direccion domicilio</label>
+            <input type="text" class="form-control" id="inputNinoDireccion">
+
+
+            <i style="background: #feca12;padding: 10px" type="submit" class="fas fa-search fa-lg" id="buscarDireccionNino">Buscar</i>
+            <div id="mapNino" style="height: 350px"></div>
+
+        </div>
+
+    </div>
+
+    <button id="btnEnviar" class="btn btn-lg btn-block btn-success" >Guardar datos</button>
+</form>
+
+<script>
+
+
+
+    var apoderado = {};
+    var ninoCoordenadas = {};
+    var apoderadoCoordenadas = {};
+
+    var nS = "";
+    fetch(host+'/apoderado/', {headers: {authorization: 'Basic ' + getCookie('credentials')}}).then(ok => {
+        ok.json().then(okJSON => {
+            if (okJSON.code != 200) {
+                window.location.replace(host+"/apoderado/login");
+
+            } else {
+                apoderado = okJSON.response
+
+
+                console.log(apoderado)
+
+                const geocoder = new google.maps.Geocoder();
+                apoderadoCoordenadas = apoderado.direccion;
+
+
+                var elMap = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 17,
+                    center: {lat:parseFloat(apoderado.direccion.split(",")[0]), lng: parseFloat(apoderado.direccion.split(",")[1])},
+                });
+
+
+                marker = new google.maps.Marker({
+                    map: elMap,
+                    position: {lat:parseFloat(apoderado.direccion.split(",")[0]), lng: parseFloat(apoderado.direccion.split(",")[1])},
+                });
+
+
+                elMap.addListener("click", (mapsMouseEvent) => {
+                    // Close the current InfoWindow.
+                    let position = mapsMouseEvent.latLng
+                    apoderadoCoordenadas = position.lat() + "," + position.lng();
+                    position = {lat:position.lat(),lng:position.lng()}
+                    geocodeLatLng(geocoder, elMap, position)
+                    console.log(position)
+                    marker.setPosition(position)
+
+                });
+
+                document.getElementById("buscarDireccionApoderado").addEventListener("click", () => {
+                    geocodeAddress();
+                });
+
+                function geocodeLatLng(geocoder, map, pos) {
+                    let latlng = pos;
+                    console.log(pos)
+                    geocoder.geocode({location: latlng}, (results, status) => {
+                        if (status === "OK") {
+                            if (results[0]) {
+                                document.getElementById("inputApoderadoDireccion").value = results[0].formatted_address
+
+                            } else {
+                                window.alert("No results found");
+                            }
+                        } else {
+                            window.alert("Geocoder failed due to: " + status);
+                        }
+                    });
+                }
+
+                function geocodeAddress() {
+                    let el = "inputApoderadoDireccion";
+                    console.log(document.getElementById(el))
+                    const address = document.getElementById(el).value;
+                    console.log(address)
+                    geocoder.geocode({address: address}, (results, status) => {
+                        if (status === "OK") {
+                            elMap.setCenter(results[0].geometry.location);
+                            marker.setPosition(results[0].geometry.location)
+                            apoderadoCoordenadas = results[0].geometry.location.lat() + "," + results[0].geometry.location.lng();
+
+                        } else {
+                            alert("Geocode was not successful for the following reason: " + status);
+                        }
+                    });
+                }
+
+
+                var elMapNino = new google.maps.Map(document.getElementById("mapNino"), {
+                    zoom: 17,
+                    center: {lat: -33.436958, lng: -70.634441}
+                });
+
+
+                markerNino = new google.maps.Marker({
+                    map: elMapNino,
+                    position: {lat: -33.436958, lng: -70.634441},
+                });
+
+                elMapNino.addListener("click", (mapsMouseEvent) => {
+                    // Close the current InfoWindow.
+                    let position = mapsMouseEvent.latLng
+                    geocodeLatLngNino(geocoder, elMapNino, position)
+                });
+
+                document.getElementById("buscarDireccionNino").addEventListener("click", () => {
+                    geocodeAddressNino();
+                });
+
+                function geocodeLatLngNino(geocoder, map, pos) {
+
+                    console.log(pos)
+                    console.log(pos.lng())
+                    console.log(pos.lat())
+                    let laP = {
+                       lat:pos.lat(),
+                       lng:pos.lng(),
+                    }
+                    markerNino.setPosition(laP)
+                    const latlng = pos;
+                    ninoCoordenadas = pos.lat() + "," + pos.lng()
+
+                    geocoder.geocode({location: laP}, (results, status) => {
+                        if (status === "OK") {
+                            if (results[0]) {
+                                elMapNino.panTo(laP)
+                                document.getElementById("inputNinoDireccion").value = results[0].formatted_address
+
+                            } else {
+                                window.alert("No results found");
+                            }
+                        } else {
+                            window.alert("Geocoder failed due to: " + status);
+                        }
+                    });
+                }
+
+                function geocodeAddressNino() {
+                    let el = "inputNinoDireccion";
+                    console.log(document.getElementById(el))
+                    const address = document.getElementById(el).value;
+                    console.log(address)
+                    geocoder.geocode({address: address}, (results, status) => {
+                        if (status === "OK") {
+                            elMapNino.setCenter(results[0].geometry.location);
+                            markerNino.setPosition(results[0].geometry.location)
+                            ninoCoordenadas = results[0].geometry.location.lat() + "," + results[0].geometry.location.lng()
+
+                        } else {
+                            alert("Geocode was not successful for the following reason: " + status);
+                        }
+                    });
+                }
+
+
+                let modalidades = ["Solo mañana", "Solo tarde", "Mañana y tarde"]
+
+
+                let apoderadoInputRut = document.querySelector("#inputApoderadoRut");
+                let apoderadoInputNombre = document.querySelector("#inputApoderadoNombre");
+                let apoderadoInputPaterno = document.querySelector("#inputApoderadoPaterno");
+                let apoderadoInputMaterno = document.querySelector("#inputApoderadoMaterno");
+                let apoderadoInputCorreo = document.querySelector("#inputApoderadoCorreo");
+                let apoderadoInputTelefono = document.querySelector("#inputApoderadoTelefono");
+                let apoderadoInputDireccion = document.querySelector("#inputApoderadoDireccion");
+
+
+                apoderadoInputRut.value = apoderado.rutAp
+                apoderadoInputNombre.value = apoderado.nombre
+                apoderadoInputPaterno.value = apoderado.apellidoPaterno
+                apoderadoInputMaterno.value = apoderado.apellidoMaterno
+                apoderadoInputCorreo.value = apoderado.email
+                apoderadoInputTelefono.value = apoderado.telefono
+
+                let lapos = {lat:parseFloat(apoderado.direccion.split(",")[0]),lng:parseFloat(apoderado.direccion.split(",")[1])}
+                elMap.panTo(lapos)
+                geocodeLatLng(geocoder,elMap,lapos);
+
+
+                apoderado.nino
+                    .forEach(n => {
+                        let opt = document.createElement('option');
+                        opt.innerText = n.nombre;
+                        opt.value = n.rutN;
+                        document.querySelector('#ninosSelectNinos').append(opt)
+                    })
+
+
+                if (document.getElementById("ninosSelectNinos").value == "default") {
+                    document.querySelector("#datosNino").style.display = "none"
+                }
+
+
+                function editarle() {
+                    let ninoInputNombre = document.querySelector("#inputNinoNombre")
+                    let ninoInputPaterno = document.querySelector("#inputNinoPaterno")
+                    let ninoInputMaterno = document.querySelector("#inputNinoMaterno")
+                    let ninoInputEdad = document.querySelector("#inputNinoEdad")
+                    let ninoSelectCursos = document.querySelector("#ninosSelectCursos")
+                    let ninoSelectReglas = document.querySelector("#ninosSelectReglas")
+                    let ninoInputColegio = document.querySelector("#inputNinoColegio")
+                    let ninoInputDireccion = document.querySelector("#inputNinoDireccion")
+
+
+                    let data = {
+                        "nombre": apoderadoInputNombre.value,
+                        "apellidoPaterno": apoderadoInputPaterno.value,
+                        "apellidoMaterno": apoderadoInputMaterno.value,
+                        "telefono": apoderadoInputTelefono.value,
+                        "email": apoderadoInputCorreo.value,
+                        "direccion": apoderadoCoordenadas,
+                        "nino":ninosSelectNinos.value == "default" ? []: [
+
+                            {
+                                "rutN": nS,
+                                "nombre": ninoInputNombre.value,
+                                "apellidoPaterno": ninoInputPaterno.value,
+                                "apellidoMaterno": ninoInputMaterno.value,
+                                "edad": ninoInputEdad.value,
+                                "curso": ninoSelectCursos.value,
+                                "reglas": ninoSelectReglas.value,
+                                "direccion": ninoCoordenadas,
+                                "colegio": {
+                                    "idColegio": ninoInputColegio.valueID,
+                                }
+                            }
+                        ]
+                    }
+
+                    console.log(JSON.stringify(data))
+
+                    fetch(host+"/apoderado/", {
+                        method: "PATCH",
+                        headers: {
+                            "content-type": "application/json",
+                            authorization: "Basic " + getCookie("credentials")
+                        },
+                        body: JSON.stringify(data)
+                    }).then(ok => {
+                        window.location.replace(host+"/apoderado/login");
+                    })
+
+
+                }
+
+                document.querySelector("#lo").addEventListener("submit",editarle);
+                document.querySelector("#ninosSelectNinos").addEventListener("change",selectNino);
+
+
+
+                function selectNino() {
+                    if (document.getElementById("ninosSelectNinos").value == "default") {
+                        document.querySelector("#datosNino").style.display = "none"
+                    } else {
+                        document.querySelector("#datosNino").style.display = "flex"
+                        let ninoObj = apoderado.nino.filter(n => n.rutN == document.getElementById("ninosSelectNinos").value)[0]
+                        nS = ninoObj.rutN;
+                        ninoCoordenadas = ninoObj.direccion
+                        let ninoInputNombre = document.querySelector("#inputNinoNombre")
+                        let ninoInputPaterno = document.querySelector("#inputNinoPaterno")
+                        let ninoInputMaterno = document.querySelector("#inputNinoMaterno")
+                        let ninoInputEdad = document.querySelector("#inputNinoEdad")
+                        let ninoSelectCursos = document.querySelector("#ninosSelectCursos")
+                        let ninoSelectReglas = document.querySelector("#ninosSelectReglas")
+                        let ninoInputColegio = document.querySelector("#inputNinoColegio")
+                        let ninoInputDireccion = document.querySelector("#inputNinoDireccion")
+
+                        ninoInputNombre.value = ninoObj.nombre
+                        ninoInputPaterno.value = ninoObj.apellidoPaterno
+                        ninoInputMaterno.value = ninoObj.apellidoMaterno
+                        ninoInputEdad.value = ninoObj.edad
+                        ninoSelectCursos.value = ninoObj.curso
+                        ninoSelectReglas.value = ninoObj.reglas
+                        ninoInputColegio.value = ninoObj.colegio.nombre
+                        ninoInputColegio.valueID = ninoObj.colegio.idColegio
+
+                        geocodeLatLngNino(geocoder,elMapNino,{lat:()=>parseFloat(ninoObj.direccion.split(",")[0]),lng:()=>parseFloat(ninoObj.direccion.split(",")[1])})
+
+                    }
+                }
+
+
+            }
+
+        })
+    }).catch(e => {
+        window.location.replace(host+"/apoderado/login");
+
+    })
+
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+
+</script>
+
+</body>
+</html>

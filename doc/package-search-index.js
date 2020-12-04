@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"cl.rt.schl.controllers"},{"l":"cl.rt.schl.entity"},{"l":"cl.rt.schl.repository"},{"l":"cl.rt.schl.services"},{"l":"cl.rt.schl.utils"}]

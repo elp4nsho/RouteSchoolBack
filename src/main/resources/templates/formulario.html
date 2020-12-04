@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <title>Formulario de registro RouteSchool</title>
+    <link rel="icon"
+          href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        #map {
+            height: 400px;
+            width: inherit;
+        }
+
+
+        .map {
+            height: 400px;
+            width: inherit;
+        }
+
+        .elMap {
+
+        }
+        i:hover{
+            cursor: pointer;
+        }
+
+        html, body {
+        }
+
+        body, div, form, input, select, p {
+            padding: 0;
+            margin: 0;
+            outline: none;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 16px;
+            color: #eee;
+        }
+
+        body {
+
+        }
+
+        h1, h2 {
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        h2 {
+            margin: 0 0 0 8px;
+        }
+
+
+        .left-part, form {
+            padding: 25px;
+        }
+
+        .left-part {
+            text-align: center;
+        }
+
+        .fa-graduation-cap {
+            font-size: 72px;
+        }
+
+        form {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, select {
+            padding: 5px;
+            margin-bottom: 30px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        input::placeholder {
+            color: #eee;
+        }
+
+        option:focus {
+            border: none;
+        }
+
+        option {
+            background: black;
+            border: none;
+        }
+
+        .checkbox input {
+            margin: 0 10px 0 0;
+            vertical-align: middle;
+        }
+
+        .checkbox a {
+            color: #26a9e0;
+        }
+
+        .checkbox a:hover {
+            color: #85d6de;
+        }
+
+        .btn-item, button {
+            padding: 10px 5px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: none;
+            background: #26a9e0;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        .btn-item {
+            display: inline-block;
+            margin: 20px 5px 0;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        button:hover, .btn-item:hover {
+            background: #85d6de;
+        }
+
+        @media (min-width: 568px) {
+            html, body {
+                height: 100%;
+            }
+
+            .main-block {
+                flex-direction: row;
+                height: calc(100% - 50px);
+            }
+
+            .left-part, form {
+                flex: 1;
+                height: auto;
+            }
+        }
+    </style>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html, body {
+            display: grid;
+            height: 100%;
+            width: 100%;
+            place-items: center;
+            background: #f2f2f2;
+
+        }
+
+        ::selection {
+            background: #4158d0;
+            color: #fff;
+        }
+
+        .wrapper {
+            width: 380px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .wrapper .title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 25px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 90px;
+            color: #fff;
+            user-select: none;
+            border-radius: 15px 15px 0 0;
+            background: linear-gradient(256deg, rgba(222, 201, 0, 1) 0%, rgba(196, 124, 0, 1) 100%);
+        }
+
+        .wrapper form {
+            padding: 10px 30px 50px 30px;
+        }
+
+        .wrapper form .field {
+            height: 50px;
+            width: 100%;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .wrapper form .field input {
+            height: 100%;
+            width: 100%;
+            outline: none;
+            font-size: 17px;
+            padding-left: 20px;
+            border: 1px solid lightgrey;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .wrapper form .field input:focus,
+        form .field input:valid {
+            border-color: black;
+        }
+
+        .wrapper form .field label {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            color: #999999;
+            font-weight: 400;
+            font-size: 17px;
+            pointer-events: none;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+        }
+
+        form .field input:focus ~ label,
+        form .field input:valid ~ label {
+            top: 0%;
+            font-size: 16px;
+            color: #c47c00;
+            background: #fff;
+            transform: translateY(-50%);
+        }
+
+        form .content {
+            display: flex;
+            width: 100%;
+            height: 50px;
+            font-size: 16px;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        form .content .checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form .content input {
+            width: 15px;
+            height: 15px;
+            background: red;
+        }
+
+        form .content label {
+            color: #262626;
+            user-select: none;
+            padding-left: 5px;
+        }
+
+        form .content .pass-link {
+            color: "";
+        }
+
+        form .field input[type="submit"] {
+            color: #fff;
+            border: none;
+            padding-left: 0;
+            margin-top: -10px;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            background: linear-gradient(354deg, rgba(196, 124, 0, 1) 0%, rgba(255, 231, 0, 1) 100%);
+
+            transition: all 0.3s ease;
+        }
+
+        form .field input[type="submit"]:active {
+            transform: scale(0.95);
+        }
+
+        form .signup-link {
+            color: #262626;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        form .pass-link a,
+        form .signup-link a {
+            color: #c47c00;
+            text-decoration: none;
+        }
+
+        form .pass-link a:hover,
+        form .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzF49PvbT3H0fUk3D8ljj1xR0RTdF9YQI&language=es">
+    </script>
+
+</head>
+<body onload="initMap()">
+<div class="main-block">
+    <form id="lo">
+        <div class="title">
+            <i class="fas fa-pencil-alt"></i>
+            <h2>Registro de apoderado</h2>
+
+        </div>
+        <div class="info">
+            <input required id="inputApoderadoNombre" class="fname" type="text" name="name" placeholder="Nombre">
+            <input required id="inputApoderadoPApellido" class="fname" type="text" name="name"
+                   placeholder="Primer Apellido">
+            <input id="inputApoderadoSApellido" class="fname" type="text" name="name" placeholder="Segundo Apellido">
+            <div class="elMap">
+                <div style="display: flex;align-items: baseline">
+                    <input id="direccionApoderado" type="textbox" value="santiago, vicuña mackena"/>
+                    <i id="buscarDireccion" class="fas fa-search fa-lg" style="padding: 10px;background: #feca12;">Buscar</i>
+                </div>
+                <div class="title" id="map"></div>
+            </div>
+            <input required id="inputApoderadoCorreo" type="email" name="name" placeholder="Correo electronico">
+            <input required id="inputApoderadoTelefono" type="tel" maxlength="11" pattern="[0-9]{11}" name="name"
+                   placeholder="Telefono" value="56"
+                   title="El nÃºmero debe tener el siguiente formato ejemplo 569xxxxxxxx">
+            <input id="inputApoderadoRUT" placeholder="RUT apoderado" type="text" name="rut" required="required"
+                   pattern="\d{3,8}-[\d|kK]{1}"
+                   title="Debe ser un Rut válido"/>
+            <input required id="inputApoderadoClave" type="password" name="name" minlength="8" placeholder="Clave">
+            <div style="display: flex;justify-content: space-between" id="addKid">
+                <span>Agregar niño  </span><i style="color: #48dd23;" class="fas fa-plus fa-lg"></i>
+
+            </div>
+
+
+        </div>
+
+        <button style="background: #48dd23" id="submit" type="submit" href="/">Terminar registro</button>
+    </form>
+    <script>
+        requester = (url, method, body = {}, headers = {"content-type": "application/json"}) => {
+            return fetch(url, method != "GET" ? {
+                headers: {...headers},
+                method,
+                body
+
+            } : {
+                headers: {...headers},
+                method,
+
+            })
+        }
+    </script>
+    <script>
+        var host = "http://approuteschool.ddns.net:8080"
+        var i = 0;
+        agregarNino = () => {
+            let este = document.querySelector("#addKid");
+            let divTitle = document.createElement("div");
+            divTitle.addEventListener("click", eliminar)
+            divTitle.id = "nuevoNino:" + i
+
+
+            divTitle.className = "title"
+            divTitle.style.display = "flex";
+            divTitle.style.justifyContent = "space-between";
+            let icon = document.createElement("i");
+            icon.className = "fas fa-times fa-lg"
+            icon.style.color = "#ff3113"
+
+            let h2 = document.createElement("h2");
+            h2.innerText = "Registro de niño"
+            divTitle.appendChild(h2)
+            divTitle.appendChild(icon)
+
+            este.parentNode.insertBefore(divTitle, este.previousSibling);
+
+            let dirA = document.getElementById("direccionApoderado").value
+
+            este.parentNode.insertBefore(unInput("Rut nino", "rutNino" + i), este.previousSibling);
+            este.parentNode.insertBefore(unInput("Nombre niño", "nombreNino" + i), este.previousSibling);
+            este.parentNode.insertBefore(unInput("Apellido paterno", "apellidoPNino" + i), este.previousSibling);
+            este.parentNode.insertBefore(unInput("Apellido materno", "apellidoMNino" + i), este.previousSibling);
+            let divDireccion = document.createElement("div");
+            let direccionInput = unInput("Direccion", "direccionNino" + i);
+            divDireccion.append(direccionInput)
+            let botonDir = document.createElement("i");
+            botonDir.innerText = "buscar"
+            botonDir.id = "btnBuscar:" + i
+            botonDir.style.padding = "10px";
+            botonDir.style.background = "#feca12"
+            botonDir.className = "fas fa-search fa-lg";
+            botonDir.addEventListener("click", geocodeAddress)
+            divDireccion.append(botonDir)
+            divDireccion.style.display = "flex"
+            divDireccion.style.justifyContent = "space-between"
+            divDireccion.style.alignItems = "baseline"
+            divDireccion.className = "title"
+            este.parentNode.insertBefore(divDireccion, este.previousSibling);
+
+
+            console.log(dirA)
+
+            document.getElementById("direccionNino" + i).value = dirA
+
+            let elMapa = document.createElement("div");
+            elMapa.id = "nuevoMapa:" + i;
+            elMapa.className = "map title";
+
+            este.parentNode.insertBefore(elMapa, este.previousSibling);
+
+            let map = iniciarMapa("nuevoMapa:" + i);
+
+
+            let marker = new google.maps.Marker({
+                map: map,
+                position: {lat: -33.436958, lng: -70.634441},
+            });
+
+            map.addListener("click", (mapsMouseEvent) => {
+                // Close the current InfoWindow.
+                let position = mapsMouseEvent.latLng
+                console.log(map)
+                geocodeLatLng(geocoder, map, position, map.id)
+                marker.setPosition(position)
+
+            });
+
+
+            /*   <div class="title">
+                       <i class="fas fa-pencil-alt"></i>
+                       <h2>Registro de apoderado</h2>
+                   </div>*/
+            let selectColegios = document.createElement("select")
+            selectColegios.id = "selectNino" + i
+
+
+            for (let c of colegios) {
+                let option = document.createElement("option");
+                option.innerText = c["nombre"];
+                option.value = c["idColegio"];
+                selectColegios.appendChild(option);
+            }
+
+
+            let labelColegios = document.createElement("label")
+            labelColegios.innerText = "Colegio"
+            labelColegios.id = "lblColegio" + i
+            este.parentNode.insertBefore(labelColegios, este.previousSibling);
+            este.parentNode.insertBefore(selectColegios, este.previousSibling);
+            let laEdadElement = unInput("Edad", "edadNino" + i);
+            laEdadElement.type = "number"
+            este.parentNode.insertBefore(laEdadElement, este.previousSibling);
+
+            let selectCursos = document.createElement("select");
+            selectCursos.id = "selectCursos" + i;
+            let cursos = ["pre-kinder", "kinder", "primero basico", "segundo basico", "tercero basico", "cuarto basico", "quinto basico", "sexto basico", "septimo basico", "octavo basico"
+                , "primero medio", "segundo medio", "tercero medio", "cuarto medio", "otros"]
+            for (let cc of cursos) {
+                let option = document.createElement("option");
+                option.innerText = cc;
+                option.value = cc;
+                selectCursos.appendChild(option);
+            }
+            let labelCursos = document.createElement("label")
+            labelCursos.innerText = "Curso"
+            labelCursos.id = "lblCurso" + i
+            este.parentNode.insertBefore(labelCursos, este.previousSibling);
+            este.parentNode.insertBefore(selectCursos, este.previousSibling);
+
+
+            let selectModalidad = document.createElement("select");
+            selectModalidad.id = "selectModalidad" + i;
+            let modalidades = ["Solo mañana", "Solo tarde", "Mañana y tarde"]
+            for (let m of modalidades) {
+                let option = document.createElement("option");
+                option.innerText = m;
+                option.value = m == "Solo mañana" ? 1 : m == "Solo tarde" ? 2 : "Mañana y tarde" ? 3 : 0;
+                selectModalidad.appendChild(option);
+            }
+            let labelModalidad = document.createElement("label")
+            labelModalidad.innerText = "Modalidad de retiro"
+            labelModalidad.id = "lblModalidad" + i
+            este.parentNode.insertBefore(labelModalidad, este.previousSibling);
+            este.parentNode.insertBefore(selectModalidad, este.previousSibling);
+
+
+            nino = {
+                idDiv: "nuevoMapa" + i,
+                i,
+                dirValue: {lat: -33.436958, lng: -70.634441},
+                map,
+                marker,
+            };
+
+            ninos.push(nino);
+            console.log(nino);
+            i++;
+
+
+        };
+
+    </script>
+    <script>
+
+
+
+        var link = window.location.toString().split('/').slice(-1);
+
+        var colegios = [];
+        var apoderadoCoordenadas = {}
+
+        var ninos = [];
+
+
+        var marker = {};
+        const geocoder = new google.maps.Geocoder();
+
+        requester(host + "/apoderado/colegios/" + link, "GET").then(okData => {
+            okData.json().then(okDataJSON => {
+                colegios = okDataJSON.response;
+            })
+        });
+
+
+        function iniciarMapa(id) {
+            let elMap = new google.maps.Map(document.getElementById(id), {
+                zoom: 17,
+                center: {lat: -33.436958, lng: -70.634441}
+            });
+            elMap.id = id
+            console.log(id)
+            if (id == "map") {
+                apoderadoCoordenadas = {lat: -33.436958, lng: -70.634441};
+            } else {
+
+                /*  let idN = id.split(":")[1]
+                  let ninoObj = ninos.filter(n=>n.i==idN)[0]
+                  console.log(idN)
+                  console.log(ninos)
+                  console.log(ninoObj)
+                  ninoObj.dirCoords = {lat: -33.436958, lng: -70.634441};
+                  ninos = ninos.filter(n=>n.i!=idN)
+                  ninos.push(ninoObj);*/
+            }
+
+            return elMap
+        }
+
+
+        function initMap() {
+            map = iniciarMapa('map')
+            const geocoder = new google.maps.Geocoder();
+
+            document.getElementById("buscarDireccion").addEventListener("click", () => {
+                geocodeAddress(map);
+            });
+
+            marker = new google.maps.Marker({
+                map: map,
+                position: {lat: -33.436958, lng: -70.634441},
+            });
+
+            map.addListener("click", (mapsMouseEvent) => {
+                // Close the current InfoWindow.
+                let position = mapsMouseEvent.latLng
+                geocodeLatLng(geocoder, map, position, "direccionApoderado")
+                marker.setPosition(position)
+
+            });
+
+        }
+
+        function geocodeLatLng(geocoder, map, pos, id) {
+            const latlng = pos;
+            console.log(id)
+            if (id == "direccionApoderado") {
+                apoderadoCoordenadas = {lat: pos.lat(), lng: pos.lng()}
+            } else {
+                let idN = id.split(":")[1]
+                let ninoObj = ninos.filter(n => n.i == idN)[0]
+                console.log(idN)
+                console.log(ninos)
+                console.log(ninoObj)
+                ninoObj.dirValue = {lat: pos.lat(), lng: pos.lng()};
+                ninos = ninos.filter(n => n.i != idN)
+                ninos.push(ninoObj);
+            }
+
+            geocoder.geocode({location: latlng}, (results, status) => {
+                if (status === "OK") {
+                    if (results[0]) {
+                        /* map.setZoom(11);
+                         const marker = new google.maps.Marker({
+                             position: latlng,
+                             map: map,
+                         });
+                         infowindow.setContent(results[0].formatted_address);
+                         infowindow.open(map, marker);*/
+                        //id = id.split(":")[1]
+                        document.getElementById(id == "direccionApoderado" ? id : "direccionNino" + id.split(":")[1]).value = results[0].formatted_address
+
+                    } else {
+                        window.alert("No results found");
+                    }
+                } else {
+                    window.alert("Geocoder failed due to: " + status);
+                }
+            });
+        }
+
+
+        function geocodeAddress(resultsMap) {
+            let el = "direccionApoderado";
+            let laMap = map;
+            let laMarker = marker;
+            if (resultsMap.id == "map") {
+                el = "direccionApoderado"
+                laMap = map
+                laMarker = marker
+            } else {
+                el = resultsMap.target.id.split(":")[1]
+                el = "direccionNino" + el
+                laMap = ninos.filter(n => n.i == resultsMap.target.id.split(":")[1])[0].map
+                laMarker = ninos.filter(n => n.i == resultsMap.target.id.split(":")[1])[0].marker
+
+            }
+            console.log()
+            const address = document.getElementById(el).value;
+            geocoder.geocode({address: address}, (results, status) => {
+                if (status === "OK") {
+
+                    laMap.setCenter(results[0].geometry.location);
+                    laMarker.setPosition(results[0].geometry.location)
+
+                    if (resultsMap.id == "map") {
+                        apoderadoCoordenadas = {
+                            lat: results[0].geometry.location.lat(),
+                            lng: results[0].geometry.location.lng()
+                        }
+                    } else {
+                        el = resultsMap.target.id.split(":")[1]
+
+
+                        let idN = el
+                        let ninoObj = ninos.filter(n => n.i == idN)[0]
+                        console.log(idN)
+                        console.log(ninos)
+                        console.log(ninoObj)
+                        ninoObj.dirValue = {
+                            lat: results[0].geometry.location.lat(),
+                            lng: results[0].geometry.location.lng()
+                        };
+                        ninos = ninos.filter(n => n.i != idN)
+                        ninos.push(ninoObj);
+                        el = "direccionNino" + el
+                        laMap = ninos.filter(n => n.i == resultsMap.target.id.split(":")[1])[0].map
+                        laMarker = ninos.filter(n => n.i == resultsMap.target.id.split(":")[1])[0].marker
+
+                    }
+
+
+                } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+        }
+
+
+        document.querySelector("#lo").addEventListener("submit", (event) => {
+            let valido = true;
+
+            let inputApoderadoNombre = document.getElementById("inputApoderadoNombre")
+            let inputApoderadoPApellido = document.getElementById("inputApoderadoPApellido")
+            let inputApoderadoSApellido = document.getElementById("inputApoderadoSApellido")
+            let direccionApoderado = document.getElementById("direccionApoderado")
+            let inputApoderadoCorreo = document.getElementById("inputApoderadoCorreo")
+            let inputApoderadoTelefono = document.getElementById("inputApoderadoTelefono")
+            let inputApoderadoRUT = document.getElementById("inputApoderadoRUT")
+            let inputApoderadoClave = document.getElementById("inputApoderadoClave")
+
+
+            var Fn = {
+
+                validaRut : function (rutCompleto) {
+                    if (!/^[0-9]+[-|â€�]{1}[0-9kK]{1}$/.test( rutCompleto ))
+                        return false;
+                    var tmp 	= rutCompleto.split('-');
+                    var digv	= tmp[1];
+                    var rut 	= tmp[0];
+                    if ( digv == 'K' ) digv = 'k' ;
+                    return (Fn.dv(rut) == digv );
+                },
+                dv : function(T){
+                    var M=0,S=1;
+                    for(;T;T=Math.floor(T/10))
+                        S=(S+T%10*(9-M++%6))%11;
+                    return S?S-1:'k';
+                }
+            }
+            let ninosObj = [];
+
+            if (ninos.length == 0) {
+                valido = false;
+            }
+            for(let n of ninos){
+
+
+                if(document.getElementById("edadNino" + n.i).value < 0 || document.getElementById("edadNino" + n.i).value > 20){
+                    valido = false;
+                }
+
+
+                console.log(Fn.validaRut(document.getElementById("rutNino" + n.i).value))
+
+
+                if(Fn.validaRut(document.getElementById("rutNino" + n.i).value)){
+
+                }else{
+                    valido = false;
+                }
+
+
+                let objN = {
+                    rutN: document.getElementById("rutNino" + n.i).value,
+                    nombre: document.getElementById("nombreNino" + n.i).value,
+                    apellidoPaterno: document.getElementById("apellidoPNino" + n.i).value,
+                    apellidoMaterno: document.getElementById("apellidoMNino" + n.i).value,
+                    direccion: n.dirValue.lat + "," + n.dirValue.lng,
+                    edad: document.getElementById("edadNino" + n.i).value,
+                    curso: document.getElementById("selectCursos" + n.i).value,
+                    reglas: document.getElementById("selectModalidad" + n.i).value,
+                    colegio: {
+                        idColegio: document.getElementById("selectNino" + n.i).value
+                    }
+                }
+                ninosObj.push(objN)
+            }
+
+            if(!(Fn.validaRut(inputApoderadoRUT.value))){
+                valido = false;
+            }
+
+            let apoderado = {
+                rutAp: inputApoderadoRUT.value,
+                nombre: inputApoderadoNombre.value,
+                apellidoPaterno: inputApoderadoPApellido.value,
+                apellidoMaterno: inputApoderadoSApellido.value,
+                clave: inputApoderadoClave.value,
+                email: inputApoderadoCorreo.value,
+                telefono: inputApoderadoTelefono.value,
+                direccion: apoderadoCoordenadas.lat + "," + apoderadoCoordenadas.lng,
+                nino: ninosObj
+            };
+            if(valido){
+                document.querySelector("#submit").style.display = "none"
+                requester(host + "/apoderado/registrar/" + link, "POST", JSON.stringify(apoderado)).then(ok => {
+                    ok.json().then(okJ => {
+
+                        console.log(okJ)
+                        if (okJ.code == 200) {
+                            window.location.replace(host + "/apoderado/login");
+
+                        } else {
+                            document.querySelector("#submit").style.display = "block"
+
+                            alert("Error en la conexion al servidor")
+
+                        }
+                    })
+                }).catch(e => {
+                    document.querySelector("#submit").style.display = "block"
+                    alert("Error en la conexion al servidore")
+
+                })
+            }else{
+
+               alert("Error de datos ingresados")
+                event.preventDefault();
+
+            }
+
+
+
+        });
+        document.querySelector("#addKid").addEventListener("click", agregarNino)
+
+
+        function eliminar(elmNino) {
+            let target = elmNino.target.tagName == "H2" ? elmNino.target.parentNode : elmNino.target.tagName == "I" ? elmNino.target.parentNode : elmNino.target
+            if (elmNino.target.tagName == "I") {
+                let target = elmNino.target.tagName == "H2" ? elmNino.target.parentNode : elmNino.target.tagName == "I" ? elmNino.target.parentNode : elmNino.target
+                console.log(target)
+                let id = target.id
+                id = id.split(":")[1]
+                console.log(ninos)
+                ninos = ninos.filter(n => n.i != id)
+                removeElement("nombreNino" + id)
+                removeElement("apellidoPNino" + id)
+                removeElement("apellidoMNino" + id)
+                removeElement("direccionNino" + id)
+                removeElement("nuevoMapa:" + id)
+                removeElement("selectNino" + id)
+                removeElement("nuevoNino:" + id)
+                removeElement("btnBuscar:" + id)
+                removeElement("selectCursos" + id)
+                removeElement("edadNino" + id)
+                removeElement("lblCurso" + id)
+                removeElement("rutNino" + id)
+                removeElement("selectModalidad" + id)
+                removeElement("lblModalidad" + id)
+                removeElement("lblColegio" + id)
+
+            } else {
+
+            }
+
+
+        }
+
+        function unInput(placeholder, id) {
+            let ele = document.createElement("input");
+            ele.placeholder = placeholder;
+            ele.required = true
+            ele.id = id;
+            return ele
+
+        }
+
+        function removeElement(elementId) {
+            // Removes an element from the document
+            var element = document.getElementById(elementId);
+            element.parentNode.removeChild(element);
+        }
+
+
+    </script>
+
+</div>
+</body>
+</html>
